@@ -74,6 +74,8 @@ The following command will create a two node GPU cluster (VM size is Standard_NC
 az batchai cluster create -n nc6 -g batchai.recipes -w recipe_workspace -s Standard_NC6 -t 2 --generate-ssh-keys
 ```
 
+（重要）--vm-priority lowpriorityとすることで、低優先度仮想マシンを使ったクラスターを構成できます。こちらは、クラスター作成後に変更することができませんので、作成時にご指定ください。
+
 （補足）GPUなしのクラスターを作成することも可能です。その場合、-s Standard_D1 など別の仮想マシンのサイズをご指定ください。本ハンズオンでGPUを使わない場合は、のちのジョブ実行の際、train_mnist.py -gの-gを忘れずに消去してください。
 
 `--generate-ssh-keys` option tells Azure CLI to generate private and public ssh keys if you have not them already, so
@@ -128,6 +130,17 @@ Example output:
   "vmSize": "STANDARD_NC6"
 }
 ```
+＊クラスター情報のPortalでの確認
+
+すべてのサービスからをAzure Batch AIを選択し、Workspaceから特定のワークスペースに移動します。左のブレードからクラスターを選択すると、特定のクラスターの情報を確認できます。
+
+![クラスターの確認](https://yooblob.blob.core.windows.net/dllhandson/ResourceProvider.png)
+
+＊スケールの変更
+
+ノード数はPortalのスケールから変更可能です。こちらで手動スケールから自動スケールへの変更も可能です。自動スケールの場合、ジョブの投入や終了に合わせてクラスターのサイズが変わります。通常10分程度で反応が行われますが、現状SLAなどはありません。
+
+![スケール](https://yooblob.blob.core.windows.net/dllhandson/scale.png)
 
 # Create a Storage Account
 

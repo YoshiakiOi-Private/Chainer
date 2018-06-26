@@ -39,7 +39,7 @@ or install and configure it locally using the [following instructions](/document
 
 # (追記)リソースプロバイダーの登録
 
-リソースプロバイダーを登録していない方は、Azure Portalから登録が必要です。すべてのサービスからサブスクリプションを選択、左のブレードからリソースプロバイダーを選びます。そこからbatchを検索するとMicrosoft.BatchとMicrosoft.BatchAIを登録します。
+リソースプロバイダーを登録していない方は、Azure Portalから登録が必要です。すべてのサービスからサブスクリプションを選択、左のブレードからリソースプロバイダーを選びます。そこからbatchを検索しMicrosoft.BatchとMicrosoft.BatchAIを登録します。
 
 ![リリソースプロバイダー](https://yooblob.blob.core.windows.net/dllhandson/ResourceProvider.png)
 

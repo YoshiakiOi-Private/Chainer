@@ -474,6 +474,8 @@ Azure PortalからノードへSSHするためのIPアドレスとポート番号
 ssh <IPアドレス> -p <ポート番号>
 ```
 
+# 最後に
+
 Delete the resource group and all allocated resources with the following command:
 
 ```azurecli

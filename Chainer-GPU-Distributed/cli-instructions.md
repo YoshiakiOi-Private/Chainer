@@ -153,7 +153,7 @@ wget https://raw.githubusercontent.com/chainer/chainermn/v1.3.0/examples/mnist/t
 
 ## Create Azure File Share and Deploy the Training Script
 
-The following commands will create Azure File Shares `scripts` and `logs` and will copy training script into `chainer`
+~~The following commands will create Azure File Shares~~ `scripts` and `logs` and will copy training script into `chainer`
 folder inside of `scripts` share:
 
 ```azurecli test
@@ -161,7 +161,8 @@ az storage share create -n scripts --account-name <storage account name>
 az storage share create -n logs --account-name <storage account name>
 az storage directory create -n chainer -s scripts --account-name <storage account name>
 az storage file upload -s scripts --source train_mnist.py --path chainer --account-name <storage account name>
-```
+```~~
+
 # Submit Training Job
 
 ## Prepare Job Configuration File

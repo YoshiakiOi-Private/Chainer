@@ -18,14 +18,18 @@
             "azureBlobFileSystems" :[
                 {
                     "accountName": "<Storage Account Name>",
-                    "containerName": "<Container Name>",
-                    "credentials": "<Storage Account Key>",
+                    "containerName": "<Container Name (For Script)>",
+                    "credentials": {
+                        "accountKey": "<Storage Account Key>"
+                    },
                     "relativeMountPath": "scripts"
                 },
                 {
                     "accountName": "<Storage Account Name>",
-                    "containerName":"<Container Name>",
-                    "credentials": "<Storage Account Key>",
+                    "containerName":"<Container Name (For Data)>",
+                    "credentials": {
+                        "accountKey": "<Storage Account Key>"
+                    },
                     "relativeMountPath": "data"
                 }
               ]

@@ -186,10 +186,11 @@ az storage file upload -s scripts --source train_mnist.py --path chainer --accou
 
 ## (変更) Azure Blob コンテナーの作成と学習スクリプトのデプロイ
 
-以下のコマンドでBlobコンテナーの作成とコンテナーへのファイルのアップロードを行います。ここで、データの送り先のパスで（-n）chainer/train_mnist.py とすることで、Blobコンテナーの中に仮想的なディレクトリを作ることができます。
+以下のコマンドでBlobコンテナーの作成とコンテナーへのファイルのアップロードを行います。ここで、データの送り先のパスで（-n）chainer/train_mnist.py とすることで、Blobコンテナーの中に仮想的なディレクトリを作ることができます。本ハンズオンでは、scriptsに実行ファイルを置き、dataに計算結果を出します。
 
 ```azurecli  test
 az storage container create -n scripts --account-name <storage account name>
+az storage container create -n data --account-name <storage account name>
 az storage blob upload -f train_mnist.py -n chainer/train_mnist.py --account-name <storage account name> --container scripts
 ```
 ログの置き場所はAzure Filesに作ります。Blobに置くと実行中にログが見れないため、ログファイルのみAzure Filesに置くのがおすすめです。
@@ -408,6 +409,9 @@ this epoch [..................................................]  0.00%
 
 The streaming is stopped when the job is completed.
 
+＊こちらはPortalからも確認可能です。
+![job](https://yooblob.blob.core.windows.net/dllhandson/job.png)
+![job2](https://yooblob.blob.core.windows.net/dllhandson/job2.png)
 # Inspect Generated Model Files
 
 The job stores the generated model files in the output directory with id = `MODEL`, you can list this files and
@@ -451,6 +455,11 @@ Example output:
 ```
 "00000000-0000-0000-0000-000000000000/batchai.recipes/workspaces/recipe_workspace/experiments/chainer_experiment/jobs/distributed_chainer/b64115e9-1e02-4006-b812-eec14cd08b92"
 ```
+# おまけ
+
+## ノードへのSSHアクセス
+
+Azure PortalからノードへSSHするためのIPアドレスとポート番号を調べることができます。Batch AIでは、裏でロードバランサーが動いており、１つのパブリックなIPアドレスを使って、仮想ネットワークに置かれているプライベートなIPアドレスを持つ計算ノードへSSHで通信ができます。
 
 Delete the resource group and all allocated resources with the following command:
 

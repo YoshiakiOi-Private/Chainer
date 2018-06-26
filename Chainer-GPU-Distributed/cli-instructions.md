@@ -138,7 +138,7 @@ Example output:
 
 すべてのサービスからをAzure Batch AIを選択し、Workspaceから特定のワークスペースに移動します。左のブレードからクラスターを選択すると、特定のクラスターの情報を確認できます。
 
-![クラスターの確認](https://yooblob.blob.core.windows.net/dllhandson/ResourceProvider.png)
+![クラスターの確認](https://yooblob.blob.core.windows.net/dllhandson/cluster.png)
 
 ＊スケールの変更
 
@@ -409,9 +409,13 @@ this epoch [..................................................]  0.00%
 
 The streaming is stopped when the job is completed.
 
-＊こちらはPortalからも確認可能です。
+＊こちらはPortalからも確認可能です。各Jobのページをご覧ください。
 ![job](https://yooblob.blob.core.windows.net/dllhandson/job.png)
+
+各ログをクリックするとその場で確認可能です。
+
 ![job2](https://yooblob.blob.core.windows.net/dllhandson/job2.png)
+
 # Inspect Generated Model Files
 
 The job stores the generated model files in the output directory with id = `MODEL`, you can list this files and
@@ -459,7 +463,16 @@ Example output:
 
 ## ノードへのSSHアクセス
 
-Azure PortalからノードへSSHするためのIPアドレスとポート番号を調べることができます。Batch AIでは、裏でロードバランサーが動いており、１つのパブリックなIPアドレスを使って、仮想ネットワークに置かれているプライベートなIPアドレスを持つ計算ノードへSSHで通信ができます。
+Azure PortalからノードへSSHするためのIPアドレスとポート番号を調べることができます。Batch AIでは、裏でロードバランサーが動いており、１つのパブリックなIPアドレスを使って、仮想ネットワークに置かれているプライベートなIPアドレスを持つ計算ノードへSSHで通信ができます。さきほどの計算をjob名を変更して再実行し、SSHで入ってdockerの起動状態やGPUの利用状態を確認してみましょう。
+
+＊PortalからIPアドレスとポート番号を確認する
+
+![ssh](https://yooblob.blob.core.windows.net/dllhandson/ssh.png)
+
+確認したものを使ってSSHを実行する。
+```azurecli
+ssh <IPアドレス> -p <ポート番号>
+```
 
 Delete the resource group and all allocated resources with the following command:
 

@@ -80,7 +80,7 @@ az batchai cluster create -n nc6 -g batchai.recipes -w recipe_workspace -s Stand
 
 `--generate-ssh-keys` option tells Azure CLI to generate private and public ssh keys if you have not them already, so
 you can ssh to cluster nodes using the ssh key and you current user name. Note. You need to backup ~/.ssh folder to
-some permanent storage if you are using Cloud Shell.
+some permanent storage if you are using Cloud Shell. (すでにキーを作成済みの場合は既存のキーが使われます。)
 
 Example output:
 ```json
@@ -145,7 +145,7 @@ Example output:
 # Create a Storage Account
 
 Create a new storage account with an unique name in the same region where you are going to create Batch AI cluster and run
-the job. Node, each storage account must have an unique name.
+the job. Node, each storage account must have an unique name.　（小文字と数字のみで、全世界で唯一の名前にする必要があります。）
 
 ```azurecli
 az storage account create -n <storage account name> --sku Standard_LRS -g batchai.recipes -l eastus

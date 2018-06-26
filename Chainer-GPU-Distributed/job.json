@@ -2,6 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/Azure/BatchAI/master/schemas/2018-05-01/job.json",
     "properties": {
         "nodeCount": 2,
+        "processCount": 2,
         "chainerSettings": {
             "pythonScriptFilePath": "$AZ_BATCHAI_JOB_MOUNT_ROOT/scripts/chainer/train_mnist.py",
             "commandLineArgs": "-g -o $AZ_BATCHAI_OUTPUT_MODEL"
@@ -12,16 +13,26 @@
                 {
                     "azureFileUrl": "https://<AZURE_BATCHAI_STORAGE_ACCOUNT>.file.core.windows.net/logs",
                     "relativeMountPath": "logs"
+                }
+            ],
+            "azureBlobFileSystems" :[
+                {
+                    "accountName": "<Storage Account Name>",
+                    "containerName": "<Container Name>",
+                    "credentials": "<Storage Account Key>",
+                    "relativeMountPath": "scripts"
                 },
                 {
-                    "azureFileUrl": "https://<AZURE_BATCHAI_STORAGE_ACCOUNT>.file.core.windows.net/scripts",
-                    "relativeMountPath": "scripts"
+                    "accountName": "<Storage Account Name>",
+                    "containerName":"<Container Name>",
+                    "credentials": "<Storage Account Key>",
+                    "relativeMountPath": "data"
                 }
-            ]
+              ]
         },
         "outputDirectories": [{
             "id": "MODEL",
-            "pathPrefix": "$AZ_BATCHAI_JOB_MOUNT_ROOT/logs"
+            "pathPrefix": "$AZ_BATCHAI_JOB_MOUNT_ROOT/data"
         }],
         "containerSettings": {
             "imageSourceRegistry": {

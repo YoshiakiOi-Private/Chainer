@@ -151,7 +151,7 @@ For GNU/Linux or Cloud Shell:
 wget https://raw.githubusercontent.com/chainer/chainermn/v1.3.0/examples/mnist/train_mnist.py
 ```
 
-## Create Azure File Share and Deploy the Training Script
+<!-- ## Create Azure File Share and Deploy the Training Script
 
 ~~The following commands will create Azure File Shares~~ `scripts` and `logs` and will copy training script into `chainer`
 folder inside of `scripts` share:
@@ -161,7 +161,20 @@ az storage share create -n scripts --account-name <storage account name>
 az storage share create -n logs --account-name <storage account name>
 az storage directory create -n chainer -s scripts --account-name <storage account name>
 az storage file upload -s scripts --source train_mnist.py --path chainer --account-name <storage account name>
-```~~
+``` -->
+
+## (変更) Azure Blob コンテナーの作成と学習スクリプトのデプロイ
+
+以下のコマンドでBlobコンテナーの作成を行います
+
+```azurecli  test
+az storage container create -n scripts --account-name <storage account name>
+az storage blob upload -f train_mnist.py -n chainer/train_mnist.py --account-name <storage account name> --container scripts
+```
+ログの置き場所はAzure Filesに作ります。
+```azurecli  test
+az storage share create -n logs --account-name <storage account name>
+```
 
 # Submit Training Job
 
@@ -183,12 +196,17 @@ Create a training job configuration file `job.json` with the following content:
                 {
                     "azureFileUrl": "https://<AZURE_BATCHAI_STORAGE_ACCOUNT>.file.core.windows.net/logs",
                     "relativeMountPath": "logs"
-                },
-                {
-                    "azureFileUrl": "https://<AZURE_BATCHAI_STORAGE_ACCOUNT>.file.core.windows.net/scripts",
-                    "relativeMountPath": "scripts"
                 }
+            ],
+            "azureBlobFileSystems" :[
+              {
+                  "accountName": <Storage Account Name>,
+                  "containerName": <Container Name>,
+                  "Credentials":
+                  "relativeMountPath": "scripts"
+              }
             ]
+
         },
         "outputDirectories": [{
             "id": "MODEL",

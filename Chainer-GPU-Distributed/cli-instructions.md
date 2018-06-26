@@ -74,6 +74,8 @@ The following command will create a two node GPU cluster (VM size is Standard_NC
 az batchai cluster create -n nc6 -g batchai.recipes -w recipe_workspace -s Standard_NC6 -t 2 --generate-ssh-keys
 ```
 
+（補足）GPUなしのクラスターを作成することも可能です。その場合、-s Standard_D1 など別の仮想マシンのサイズをご指定ください。本ハンズオンでGPUを使わない場合は、のちのジョブ実行の際、train_mnist.py -gの-gを忘れずに消去してください。
+
 `--generate-ssh-keys` option tells Azure CLI to generate private and public ssh keys if you have not them already, so
 you can ssh to cluster nodes using the ssh key and you current user name. Note. You need to backup ~/.ssh folder to
 some permanent storage if you are using Cloud Shell.
@@ -139,6 +141,8 @@ az storage account create -n <storage account name> --sku Standard_LRS -g batcha
 If selected storage account name is not available, the above command will report corresponding error. In this case, choose
 other name and retry.
 
+（補足）ストレージアカウントは必ずクラスターと同じリージョンで作成するようにしてください。別リージョンで作成した場合、計算の速度が大幅に遅くなります。
+
 # Data Deployment
 
 ## Download the Training Script
@@ -165,13 +169,13 @@ az storage file upload -s scripts --source train_mnist.py --path chainer --accou
 
 ## (変更) Azure Blob コンテナーの作成と学習スクリプトのデプロイ
 
-以下のコマンドでBlobコンテナーの作成を行います
+以下のコマンドでBlobコンテナーの作成とコンテナーへのファイルのアップロードを行います。ここで、データの送り先のパスで（-n）chainer/train_mnist.py とすることで、Blobコンテナーの中に仮想的なディレクトリを作ることができます。
 
 ```azurecli  test
 az storage container create -n scripts --account-name <storage account name>
 az storage blob upload -f train_mnist.py -n chainer/train_mnist.py --account-name <storage account name> --container scripts
 ```
-ログの置き場所はAzure Filesに作ります。
+ログの置き場所はAzure Filesに作ります。Blobに置くと実行中にログが見れないため、ログファイルのみAzure Filesに置くのがおすすめです。
 ```azurecli  test
 az storage share create -n logs --account-name <storage account name>
 ```
@@ -200,9 +204,9 @@ Create a training job configuration file `job.json` with the following content:
             ],
             "azureBlobFileSystems" :[
               {
-                  "accountName": <Storage Account Name>,
-                  "containerName": <Container Name>,
-                  "Credentials":
+                  "accountName": "<Storage Account Name>",
+                  "containerName": "<Container Name>",
+                  "Credentials": "<Storage Account Key",
                   "relativeMountPath": "scripts"
               }
             ]
@@ -421,8 +425,10 @@ from the different jobs, Batch AI creates an unique folder structure for each of
 folder containing the output using `jobOutputDirectoryPathSegment` attribute of the submitted job:
 
 ```azurecli
-az batchai job show -n distributed_chainer -j distributed_chainer -g batchai.recipes -w recipe_workspace -e chainer_experiment --query jobOutputDirectoryPathSegment
+az batchai job show -n distributed_chainer -g batchai.recipes -w recipe_workspace -e chainer_experiment --query jobOutputDirectoryPathSegment
 ```
+
+＊注意：-j distributed_chainerというオプションがオリジナルドキュメントには入ってしまっておりますが、こちら誤記になります。
 
 Example output:
 ```
@@ -432,5 +438,6 @@ Example output:
 Delete the resource group and all allocated resources with the following command:
 
 ```azurecli
-az batchai group delete -n batchai.recipes -y
+az group delete -n batchai.recipes -y
 ```
+＊注意：オリジナルには、az batchai groupとありますが、batchaiは不要です。

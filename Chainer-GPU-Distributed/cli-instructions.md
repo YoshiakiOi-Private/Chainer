@@ -203,11 +203,14 @@ az storage share create -n logs --account-name <storage account name>
 ## Prepare Job Configuration File
 
 Create a training job configuration file `job.json` with the following content:
+(job.jsonは次のステップでwgetでダウンロードできます。そちらを適宜修正してください。)
+
 ```json
 {
     "$schema": "https://raw.githubusercontent.com/Azure/BatchAI/master/schemas/2018-05-01/job.json",
     "properties": {
         "nodeCount": 2,
+        "processCount": 2,
         "chainerSettings": {
             "pythonScriptFilePath": "$AZ_BATCHAI_JOB_MOUNT_ROOT/scripts/chainer/train_mnist.py",
             "commandLineArgs": "-g -o $AZ_BATCHAI_OUTPUT_MODEL"
@@ -221,18 +224,27 @@ Create a training job configuration file `job.json` with the following content:
                 }
             ],
             "azureBlobFileSystems" :[
-              {
-                  "accountName": "<Storage Account Name>",
-                  "containerName": "<Container Name>",
-                  "Credentials": "<Storage Account Key",
-                  "relativeMountPath": "scripts"
-              }
-            ]
-
+                {
+                    "accountName": "<Storage Account Name>",
+                    "containerName": "<Container Name (For Script)>",
+                    "credentials": {
+                        "accountKey": "<Storage Account Key>"
+                    },
+                    "relativeMountPath": "scripts"
+                },
+                {
+                    "accountName": "<Storage Account Name>",
+                    "containerName":"<Container Name (For Data)>",
+                    "credentials": {
+                        "accountKey": "<Storage Account Key>"
+                    },
+                    "relativeMountPath": "data"
+                }
+              ]
         },
         "outputDirectories": [{
             "id": "MODEL",
-            "pathPrefix": "$AZ_BATCHAI_JOB_MOUNT_ROOT/logs"
+            "pathPrefix": "$AZ_BATCHAI_JOB_MOUNT_ROOT/data"
         }],
         "containerSettings": {
             "imageSourceRegistry": {
@@ -265,6 +277,7 @@ az batchai experiment create -g batchai.recipes -w recipe_workspace -n chainer_e
 ## Submit the Job
 
 Use the following command to submit the job on the cluster:
+（ダウンロードしてjob.jsonを上記に従って編集し、jobを実行してください。）
 
 ```azurecli test
 wget -O job.json https://raw.githubusercontent.com/DLL-BatchAI-Hand-on/Chainer/master/Chainer-GPU-Distributed/job.json

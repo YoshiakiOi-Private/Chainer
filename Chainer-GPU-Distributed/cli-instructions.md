@@ -33,6 +33,12 @@ before you begin.
 * Access to Azure CLI 2.0. You can either use Azure CLI 2.0 available in [Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview)
 or install and configure it locally using the [following instructions](/documentation/using-azure-cli-20.md).
 
+# (追記)リソースプロバイダーの登録
+
+リソースプロバイダーを登録していない方は、Azure Portalから登録が必要です。すべてのサービスからサブスクリプションを選択、左のブレードからリソースプロバイダーを選びます。そこからbatchを検索するとMicrosoft.BatchとMicrosoft.BatchAIを登録します。
+
+![リリソースプロバイダー](https://yooblob.blob.core.windows.net/dllhandson/ResourceProvider.png)
+
 # Cloud Shell Only
 
 If you are using Cloud Shell, please change the working directory to `/usr/$USER/clouddrive` because your home directory has no empty space:
@@ -40,6 +46,8 @@ If you are using Cloud Shell, please change the working directory to `/usr/$USER
 ```azurecli
 cd /usr/$USER/clouddrive
 ```
+
+
 
 # Create a Resource Group
 
@@ -63,7 +71,7 @@ az batchai workspace create -g batchai.recipes -n recipe_workspace -l eastus
 The following command will create a two node GPU cluster (VM size is Standard_NC6) using Ubuntu as the operation system image.
 
 ```azurecli test
-az batchai cluster create -n nc6 -g batchai.recipes -w recipe_workspace -s Standard_NC6 -t 2 --generate-ssh-keys 
+az batchai cluster create -n nc6 -g batchai.recipes -w recipe_workspace -s Standard_NC6 -t 2 --generate-ssh-keys
 ```
 
 `--generate-ssh-keys` option tells Azure CLI to generate private and public ssh keys if you have not them already, so
@@ -152,7 +160,7 @@ folder inside of `scripts` share:
 az storage share create -n scripts --account-name <storage account name>
 az storage share create -n logs --account-name <storage account name>
 az storage directory create -n chainer -s scripts --account-name <storage account name>
-az storage file upload -s scripts --source train_mnist.py --path chainer --account-name <storage account name> 
+az storage file upload -s scripts --source train_mnist.py --path chainer --account-name <storage account name>
 ```
 # Submit Training Job
 
@@ -326,7 +334,7 @@ can monitor the progress using the following command:
 az batchai job file stream -j distributed_chainer -g batchai.recipes -w recipe_workspace -e chainer_experiment  -f stdout.txt
 ```
 
-Example output: 
+Example output:
 ```
 ==========================================
 Num process (COMM_WORLD): 2

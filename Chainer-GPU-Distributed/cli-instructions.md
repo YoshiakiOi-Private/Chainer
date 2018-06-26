@@ -41,7 +41,7 @@ or install and configure it locally using the [following instructions](/document
 
 リソースプロバイダーを登録していない方は、Azure Portalから登録が必要です。すべてのサービスからサブスクリプションを選択、左のブレードからリソースプロバイダーを選びます。そこからbatchを検索しMicrosoft.BatchとMicrosoft.BatchAIを登録します。
 
-![リリソースプロバイダー](https://yooblob.blob.core.windows.net/dllhandson/ResourceProvider.png)
+![リソースプロバイダー](https://yooblob.blob.core.windows.net/dllhandson/ResourceProvider.png)
 
 # Cloud Shell Only
 
@@ -273,7 +273,8 @@ az batchai job create -n distributed_chainer -c nc6 -g batchai.recipes -w recipe
 
 ＊Storage Accountのキーは以下のコマンドで確認できる。Primary KeyまたはSecondary Keyのどちらかを入力すればよい。
 
-```azurecli tensorFlowSettingsaz storage account keys list -g batchai.recipes --account-name <storage account name>
+```azurecli test
+az storage account keys list -g batchai.recipes --account-name <storage account name>
 ```
 
 Example output:

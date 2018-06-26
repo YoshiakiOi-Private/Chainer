@@ -1,0 +1,32 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/BatchAI/master/schemas/2018-05-01/job.json",
+    "properties": {
+        "nodeCount": 2,
+        "chainerSettings": {
+            "pythonScriptFilePath": "$AZ_BATCHAI_JOB_MOUNT_ROOT/scripts/chainer/train_mnist.py",
+            "commandLineArgs": "-g -o $AZ_BATCHAI_OUTPUT_MODEL"
+        },
+        "stdOutErrPathPrefix": "$AZ_BATCHAI_JOB_MOUNT_ROOT/logs",
+        "mountVolumes": {
+            "azureFileShares": [
+                {
+                    "azureFileUrl": "https://<AZURE_BATCHAI_STORAGE_ACCOUNT>.file.core.windows.net/logs",
+                    "relativeMountPath": "logs"
+                },
+                {
+                    "azureFileUrl": "https://<AZURE_BATCHAI_STORAGE_ACCOUNT>.file.core.windows.net/scripts",
+                    "relativeMountPath": "scripts"
+                }
+            ]
+        },
+        "outputDirectories": [{
+            "id": "MODEL",
+            "pathPrefix": "$AZ_BATCHAI_JOB_MOUNT_ROOT/logs"
+        }],
+        "containerSettings": {
+            "imageSourceRegistry": {
+                "image": "batchaitraining/chainermn:openMPI"
+            }
+        }
+    }
+}

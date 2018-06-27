@@ -265,8 +265,38 @@ two Azure File Shares `logs` and `scripts`, and Azure Blob Container `data`. The
 identifier.
 * `<AZURE_BATCHAI_STORAGE_ACCOUNT>` tells that the storage account name will be specified during the job submission
 via --storage-account-name parameter or `AZURE_BATCHAI_STORAGE_ACCOUNT` environment variable on your computer.
-* Will use chainer docker image `batchaitraining/chainermn:openMPI` that is build based on [dockerfile](./dockerfile).
+* Will use chainer docker
 
+<font color="red">
+```
+"mountVolumes": {
+    "azureFileShares": [
+        {
+            "azureFileUrl": "https://<AZURE_BATCHAI_STORAGE_ACCOUNT>.file.core.windows.net/logs",
+            "relativeMountPath": "logs"
+        }
+    ],
+    "azureBlobFileSystems" :[
+        {
+            "accountName": "<Storage Account Name>",
+            "containerName": "<Container Name (For Script)>",
+            "credentials": {
+                "accountKey": "<Storage Account Key>"
+            },
+            "relativeMountPath": "scripts"
+        },
+        {
+            "accountName": "<Storage Account Name>",
+            "containerName":"<Container Name (For Data)>",
+            "credentials": {
+                "accountKey": "<Storage Account Key>"
+            },
+            "relativeMountPath": "data"
+        }
+      ]
+},
+```
+</font>
 ## Submit the Job in an Experiment
 
 Use the following command to create a new experiment called ```chainer_experiment``` in the workspace:
@@ -290,7 +320,7 @@ az batchai job create -n distributed_chainer -c nc6 -g batchai.recipes -w recipe
 az storage account keys list -g batchai.recipes --account-name <storage account name>
 ```
 
-Example output:
+Example output(本家からストレージなど若干書き換えているため、少し結果が異なります。):
 ```
 {
   "caffe2Settings": null,

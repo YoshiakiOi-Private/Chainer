@@ -138,13 +138,13 @@ Example output:
 
 すべてのサービスからをAzure Batch AIを選択し、Workspaceから特定のワークスペースに移動します。左のブレードからクラスターを選択すると、特定のクラスターの情報を確認できます。
 
-![クラスターの確認](https://yooblob.blob.core.windows.net/dllhandson/cluster.png)
+![クラスターの確認](https://yooblob.blob.core.windows.net/dllhandson/cluster1.png)
 
 ＊スケールの変更
 
 ノード数はPortalのスケールから変更可能です。こちらで手動スケールから自動スケールへの変更も可能です。自動スケールの場合、ジョブの投入や終了に合わせてクラスターのサイズが変わります。通常10分程度で反応が行われますが、現状SLAなどはありません。
 
-![スケール](https://yooblob.blob.core.windows.net/dllhandson/scale.png)
+![スケール](https://yooblob.blob.core.windows.net/dllhandson/scale1.png)
 
 # Create a Storage Account
 

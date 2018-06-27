@@ -210,7 +210,7 @@ Create a training job configuration file `job.json` with the following content:
     "$schema": "https://raw.githubusercontent.com/Azure/BatchAI/master/schemas/2018-05-01/job.json",
     "properties": {
         "nodeCount": 2,
-        "chainerSettings": {          
+        "chainerSettings": {   
           　"processCount": 2,
             "pythonScriptFilePath": "$AZ_BATCHAI_JOB_MOUNT_ROOT/scripts/chainer/train_mnist.py",
             "commandLineArgs": "-g -o $AZ_BATCHAI_OUTPUT_MODEL"

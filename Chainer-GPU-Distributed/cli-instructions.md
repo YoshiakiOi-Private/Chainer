@@ -203,7 +203,7 @@ az storage share create -n logs --account-name <storage account name>
 ## Prepare Job Configuration File
 
 Create a training job configuration file `job.json` with the following content:
-(job.jsonは次のステップでwgetでダウンロードできます。そちらを適宜修正してください。)
+(job.jsonは次のステップでwgetでダウンロードできます。そちらを適宜修正してください。<>の部分の書き換えが必要です。)
 
 ```json
 {
@@ -267,36 +267,7 @@ identifier.
 via --storage-account-name parameter or `AZURE_BATCHAI_STORAGE_ACCOUNT` environment variable on your computer.
 * Will use chainer docker
 
-<font color="red">
-```
-"mountVolumes": {
-    "azureFileShares": [
-        {
-            "azureFileUrl": "https://<AZURE_BATCHAI_STORAGE_ACCOUNT>.file.core.windows.net/logs",
-            "relativeMountPath": "logs"
-        }
-    ],
-    "azureBlobFileSystems" :[
-        {
-            "accountName": "<Storage Account Name>",
-            "containerName": "<Container Name (For Script)>",
-            "credentials": {
-                "accountKey": "<Storage Account Key>"
-            },
-            "relativeMountPath": "scripts"
-        },
-        {
-            "accountName": "<Storage Account Name>",
-            "containerName":"<Container Name (For Data)>",
-            "credentials": {
-                "accountKey": "<Storage Account Key>"
-            },
-            "relativeMountPath": "data"
-        }
-      ]
-},
-```
-</font>
+
 ## Submit the Job in an Experiment
 
 Use the following command to create a new experiment called ```chainer_experiment``` in the workspace:

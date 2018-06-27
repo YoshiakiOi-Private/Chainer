@@ -285,7 +285,7 @@ wget -O job.json https://raw.githubusercontent.com/DLL-BatchAI-Hand-on/Chainer/m
 az batchai job create -n distributed_chainer -c nc6 -g batchai.recipes -w recipe_workspace -e chainer_experiment -f job.json --storage-account-name <storage account name>
 ```
 
-＊Storage Accountのキーは以下のコマンドで確認できる。Primary KeyまたはSecondary Keyのどちらかを入力すればよい。
+＊Storage Accountのキーは以下のコマンドで確認できます。Primary KeyまたはSecondary Keyのどちらかを入力すればよいです。
 
 ```azurecli test
 az storage account keys list -g batchai.recipes --account-name <storage account name>

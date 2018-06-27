@@ -1,3 +1,9 @@
+# 本レポジトリについて
+
+本家レポジトリから、ハンズオン用にクローンして（好き勝手に）改変したものになります。
+最新の情報は必ず本家を参照するようにしてください。
+https://github.com/Azure/BatchAI 
+
 # Chainer GPU Distributed
 
 This example demonstrates how to run standard Chainer [train_mnist.py](https://github.com/chainer/chainer/blob/master/examples/mnist/train_mnist.py) example using Batch AI.
@@ -11,9 +17,9 @@ This example demonstrates how to run standard Chainer [train_mnist.py](https://g
 
 ## Instructions to Run Recipe
 
-### Python Jupyter Notebook
+<!-- ### Python Jupyter Notebook
 
-You can find Jupyter Notebook for this recipe in [Chainer-GPU-Distributed.ipynb](./Chainer-GPU-Distributed.ipynb).
+You can find Jupyter Notebook for this recipe in [Chainer-GPU-Distributed.ipynb](./Chainer-GPU-Distributed.ipynb). -->
 
 ### Azure CLI 2.0
 

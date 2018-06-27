@@ -216,7 +216,7 @@ Create a training job configuration file `job.json` with the following content:
             "commandLineArgs": "-g -o $AZ_BATCHAI_OUTPUT_MODEL"
         },
         "stdOutErrPathPrefix": "$AZ_BATCHAI_JOB_MOUNT_ROOT/logs",
-        "mountVolumes": {　
+        "mountVolumes": {
             "azureFileShares": [
                 {
                     "azureFileUrl": "https://<AZURE_BATCHAI_STORAGE_ACCOUNT>.file.core.windows.net/logs",
@@ -241,7 +241,7 @@ Create a training job configuration file `job.json` with the following content:
                     "relativeMountPath": "data"
                 }
               ]
-        },　
+        },
         "outputDirectories": [{
             "id": "MODEL",
             "pathPrefix": "$AZ_BATCHAI_JOB_MOUNT_ROOT/data"

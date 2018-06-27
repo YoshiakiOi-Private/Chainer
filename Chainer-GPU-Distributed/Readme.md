@@ -2,7 +2,7 @@
 
 本家レポジトリから、ハンズオン用にクローンして（好き勝手に）改変したものになります。
 最新の情報は必ず本家を参照するようにしてください。
-https://github.com/Azure/BatchAI 
+https://github.com/Azure/BatchAI
 
 # Chainer GPU Distributed
 
@@ -23,7 +23,7 @@ You can find Jupyter Notebook for this recipe in [Chainer-GPU-Distributed.ipynb]
 
 ### Azure CLI 2.0
 
-You can find Azure CLI 2.0 instructions for this recipe in [cli-instructions.md](./cli-instructions.md).
+You can find Azure CLI 2.0 instructions for this recipe in [cli-instructions.md](https://github.com/DLL-BatchAI-Hand-on/Chainer/Chaiener-GPU-Distributed/cli-instructions.md).
 
 ## Dockerfile
 

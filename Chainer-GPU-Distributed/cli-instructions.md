@@ -203,7 +203,7 @@ az storage share create -n logs --account-name <storage account name>
 ## Prepare Job Configuration File
 
 Create a training job configuration file `job.json` with the following content:
-(job.jsonは次のステップでwgetでダウンロードできます。そちらを適宜修正してください。<>の部分の書き換えが必要です。)
+(job.jsonは次のステップでwgetでダウンロードできます。そちらを適宜修正してください。<>の部分の書き換えが必要です。＜Container Name (For Script> と <Container Name (For Data)> の部分は、上記で作成したBlobストレージコンテナーの名前、（書き替えていなければ、scriptsとdata）を記入してください。)
 
 ```json
 {
